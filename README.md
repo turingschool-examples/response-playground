@@ -2,6 +2,8 @@
 
 A simple API with contrived routes to simulate various responses.
 
+Hosted at: https://response-playground.herokuapp.com/
+
 ## Documentation
 
 **Note:** If you are sending information in the request body, then you need to supply the request header: `Content-Type: application/json`
