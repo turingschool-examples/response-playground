@@ -13,7 +13,7 @@ app.get('/', (request, response) => {
 
 // 201 response
 app.post('/responses', (request, response) => {
-  const { name } = response.body;
+  const { name } = request.body;
 
   if (name) {
     response.status(201).json({ name });
@@ -24,21 +24,17 @@ app.post('/responses', (request, response) => {
 
 // 204 response with no data in response body
 app.delete('/responses/:id', (request, response) => {
-  const { id } = response.params;
+  const { id } = request.params;
 
-  if (id) {
-    response.sendStatus(204);
-  } else {
-    response.status(422).json({error: 'Missing an "id" in the request parameter'})
-  }
+  response.sendStatus(204);
 });
 
 // 404 response (loop through fetch calls to see which give 404 responses)
 app.get('/someNotFound/:id', (request, response) => {
-  const { id } = response.params;
+  const { id } = request.params;
 
-  if ([2, 43, 70, 99].includes(id)) {
-    response.status(400).json({error: `id:${id} is not found`});
+  if ([2, 43, 70, 99].includes(parseInt(id))) {
+    response.status(404).json({error: `id:${id} is not found`});
   } else {
     response.status(200).json({hooray: `id:${id} found`});
   }
